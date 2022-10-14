@@ -55,5 +55,6 @@ public class PostController {
     @GetMapping("/createTest")
     public String createTest() {
         this.postService.createTest();
+        return "redirect:/post/list";
     }
 }
