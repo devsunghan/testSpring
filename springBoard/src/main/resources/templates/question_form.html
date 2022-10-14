@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/form_style.css}">
+    <title>Title</title>
+</head>
+<body>
+    <h5>ポスト登録</h5>
+    <form th:action="@{/post/create}" th:object="${postForm}" method="post">
+        <div th:replace="form_errors :: formErrorsFragment"></div>
+
+        <div class="input">
+            <label for="subject">タイトル</label>
+            <input type="text" th:field="*{subject}" name="subject" id="subject">
+        </div>
+
+        <div class="input">
+            <label for="content">内容</label>
+            <textarea name="content" th:field="*{content}" id="content"></textarea>
+        </div>
+
+        <input type="submit" value="投稿">
+    </form>
+</body>
+</html>

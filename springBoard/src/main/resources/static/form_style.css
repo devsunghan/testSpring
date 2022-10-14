@@ -1,0 +1,16 @@
+.input {
+    margin-top: 20px;
+}
+
+#subject {
+    width: 100%;
+}
+
+#content {
+    height: 50px;
+    width:100%;
+}
+
+input[type=submit] {
+    margin-top: 10px;
+}

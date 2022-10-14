@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/list_style.css}">
+    <title>Title</title>
+</head>
+<body>
+<h2>掲示板</h2>
+<table>
+    <thead>
+    <tr>
+        <th>タイトル</th>
+        <th>日時</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question, loop : ${paging}">
+        <td>
+            <a th:href="@{|/post/detail/${question.id}|}" th:text="${question.subject}"></a>
+            <span style="color: red"
+                  th:if="${#lists.size(question.answerList) > 0}"
+                  th:text="${#lists.size(question.answerList)}">
+                    </span>
+        </td>
+        <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+    </tr>
+    </tbody>
+
+</table>
+
+
+<!-- Paging処理スタート -->
+<div th:if="${!paging.isEmpty()}">
+    <ul class="pagination justify-content-center">
+        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{|?page=${paging.number-1}|}">
+                <span>前のページ</span>
+            </a>
+        </li>
+        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+            th:if="${page >= paging.number-5 and page <= paging.number+5}"
+            th:classappend="${page == paging.number} ? 'active'"
+            class="page-item">
+            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+        </li>
+        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                <span>次のページ</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- Paging処理終わり -->
+<p><a th:href="@{/post/create}">ポスト投稿</a></p>
+<p><a th:href="@{/user/signup}">会員登録</a></p>
+<a sec:authorize="isAnonymous()" th:href="@{/user/login}">ログイン</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">ログアウト</a>
+</body>
+</html>

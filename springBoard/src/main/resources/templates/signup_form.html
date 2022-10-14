@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h4>会員登録</h4>
+    <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+        <div th:replace="form_errors :: formErrorsFragment"></div>
+
+        <label for="username">ユーザーID</label>
+        <input type="text" th:field="*{username}" class="form-control">
+
+
+        <label for="password1">パスワード</label>
+        <input type="password" th:field="*{password1}" class="form-control">
+
+
+        <label for="password2">パスワード再確認</label>
+        <input type="password" th:field="*{password2}" class="form-control">
+
+
+        <label for="email">Email</label>
+        <input type="email" th:field="*{email}" class="form-control">
+
+        <button type="submit">会員登録</button>
+    </form>
+</body>
+</html>
