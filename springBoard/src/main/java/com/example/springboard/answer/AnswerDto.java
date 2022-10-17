@@ -1,6 +1,6 @@
 package com.example.springboard.answer;
 
-import com.example.springboard.question.Question;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +17,5 @@ public class AnswerDto {
 
     private LocalDateTime createDate;
 
-    private Question question;
+
 }

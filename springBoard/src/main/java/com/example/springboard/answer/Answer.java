@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
-import com.example.springboard.question.Question;
+import com.example.springboard.post.Post;
+import com.example.springboard.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,5 +24,8 @@ public class Answer {
     private LocalDateTime createDate;
 
     @ManyToOne
-    private Question question;
+    private Post post;
+
+    @ManyToOne
+    private SiteUser author;
 }

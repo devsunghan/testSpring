@@ -43,7 +43,7 @@ public class UserController {
             return "signup_form";
         }
 
-        return "redirect:/question/";
+        return "redirect:/post/";
     }
 
     @GetMapping("/login")

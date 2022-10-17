@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h5>コメント修正</h5>
+    <form th:object="${answerForm}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div th:replace="form_errors :: formErrorsFragment"></div>
+        <label for="content" class="form-label">内容</label>
+        <textarea th:field="*{content}" class="form-control" rows="10"></textarea>
+        <input type="submit" value="セーブ">
+    </form>
+
+</body>
+</html>

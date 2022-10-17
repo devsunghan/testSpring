@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.example.springboard.answer.Answer;
+import com.example.springboard.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,11 @@ public class Post {
 
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
+
+    @ManyToOne
+    private SiteUser author;
+
+
 }

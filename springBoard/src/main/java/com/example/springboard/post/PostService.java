@@ -3,6 +3,7 @@ package com.example.springboard.post;
 import com.example.springboard.DataNotFoundException;
     import com.example.springboard.post.Post;
 import com.example.springboard.post.PostRepository;
+import com.example.springboard.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,12 +35,13 @@ public class PostService {
         }
     }
 
-    public void create(String subject, String content) {
-        Post q = new Post();
-        q.setSubject(subject);
-        q.setContent(content);
-        q.setCreateDate(LocalDateTime.now());
-        this.postRepository.save(q);
+    public void create(String subject, String content, SiteUser user) {
+        Post p = new Post();
+        p.setSubject(subject);
+        p.setContent(content);
+        p.setCreateDate(LocalDateTime.now());
+        p.setAuthor(user);
+        this.postRepository.save(p);
     }
 
     public void save(Post q) {
@@ -61,5 +63,15 @@ public class PostService {
             p.setCreateDate(LocalDateTime.now());
             this.postRepository.save(p);
         }
+    }
+
+    public void modify(Post post, String subject, String content) {
+        post.setSubject(subject);
+        post.setContent(content);
+        this.postRepository.save(post);
+    }
+
+    public void delete(Post post) {
+        this.postRepository.delete(post);
     }
 }

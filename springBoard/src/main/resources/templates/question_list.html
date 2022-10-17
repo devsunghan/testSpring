@@ -11,6 +11,7 @@
     <thead>
     <tr>
         <th>タイトル</th>
+        <th>作者</th>
         <th>日時</th>
     </tr>
     </thead>
@@ -23,6 +24,7 @@
                   th:text="${#lists.size(question.answerList)}">
                     </span>
         </td>
+        <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
         <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
     </tr>
     </tbody>

@@ -6,21 +6,53 @@
     <title>Title</title>
 </head>
 <body>
-    <h1 th:text="${question.subject}"></h1>
-    <div th:text="${question.content}"></div>
+    <h1 th:text="|${post.subject}|"></h1>
+    <p th:if="${post.author != null}" th:text="|作者：${post.author.username}|"></p>
+    <div th:text="|内容：${post.content}|"></div>
+    <a th:href="@{|/post/modify/${post.id}|}" sec:authorize="isAuthenticated()"
+       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
+       th:text="修正"></a>
 
-    <h5 th:text="|${#lists.size(question.answerList)}つのコメントがあります。|"></h5>
+<!--    delete機能はJavascriptで実装しました。-->
+    <a href="javascript:void(0);" th:data-uri="@{|/post/delete/${post.id}|}" sec:authorize="isAuthenticated()"
+       class="delete" th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
+       th:text="削除"></a>
+
+    <h5 th:text="|${#lists.size(post.answerList)}つのコメントがあります。|"></h5>
     <div>
-        <ul>
-            <li th:each="answer : ${question.answerList}" th:text="${answer.content}"></li>
-        </ul>
+        <div th:each="answer : ${post.answerList}">
+            <p th:if="${answer.author != null}" th:text="|作者：${answer.author.username}|"></p>
+            <p th:text="|内容：${answer.content}|"></p>
+<!--        <p th:each="answer : ${post.answerList}" th:text="${answer.content}"></p>-->
+
+        <a th:href="@{|/answer/modify/${answer.id}|}" sec:authorize="isAuthenticated()"
+           th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+           th:text="修正"></a>
+        <a href="javascript:void(0);" th:data-uri="@{|/answer/delete/${answer.id}|}" class="delete" sec:authorize="isAuthenticated()"
+           th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+           th:text="削除"></a>
+        </div>
     </div>
 
-    <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post">
+
+    <form th:action="@{|/answer/create/${post.id}|}" th:object="${answerForm}" method="post">
         <div th:replace="form_errors :: formErrorsFragment"></div>
 
-        <textarea th:field="*{content}" name="content" id="content" rows="15"></textarea>
+<!--        sec:authorizeはログインチェックをする属性です。-->
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" name="content" id="content" rows="15"></textarea>
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" name="content" id="content" rows="15"></textarea>
         <input type="submit" value="コメント登録">
     </form>
 </body>
+
+<script layout:fragment="script" type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("本当に削除しますか?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
 </html>
