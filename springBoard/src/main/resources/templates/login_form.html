@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <div th:insert="layout.html :: nav"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/nav_style.css}">
     <title>Title</title>
 </head>
 <body>
+    <h4>ログイン</h4>
     <form th:action="@{/user/login}" method="post">
         <div th:if="${param.error}">
             <h5>ユーザーIDもしくはパスワードを確認してください。</h5>

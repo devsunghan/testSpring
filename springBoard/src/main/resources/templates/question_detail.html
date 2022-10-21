@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/detail_style.css}">
     <title>Title</title>
+    <div th:insert="layout.html :: nav"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/nav_style.css}">
 </head>
 <body>
     <h1 th:text="|${post.subject}|"></h1>

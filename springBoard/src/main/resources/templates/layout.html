@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <th:block layout:fragment="nav">
+        <nav id="nav1">
+            <ul>
+                <li><a th:href="@{/post/list}">メインページ</a></li>
+                <li><a th:href="@{/post/create}">ポスト投稿</a></li>
+                <li><a sec:authorize="isAnonymous()" th:href="@{/user/login}">ログイン</a></li>
+                <li><a sec:authorize="isAnonymous()" th:href="@{/user/signup}">会員登録</a></li>
+                <li><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">ログアウト</a></li>
+
+            </ul>
+        </nav>
+
+    </th:block>
     <title>Title</title>
 </head>
 <body>

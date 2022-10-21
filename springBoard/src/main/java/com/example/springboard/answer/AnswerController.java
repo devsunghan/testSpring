@@ -31,11 +31,13 @@ public class AnswerController {
 
 //    PrincipalはSpringSecurityで提供するオブジェクトで
 //    principal.getName()を使うと、現在ログインしたユーザーのIDを探すことができます。
+
+//　　　コメントを付けると、現在ログインしているユーザーの情報をPrincipalから貰い、エラーが無ければ
+//　　　DBにコメントを入れ、元のページに戻ります。
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
-    public String createAnswer(Model model, @PathVariable("id") Integer id,
-                               @Valid AnswerForm answerForm, BindingResult bindingResult,
-                               Principal principal) {
+    public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerForm,
+                               BindingResult bindingResult, Principal principal) {
 
         Post post = this.postService.getPost(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
@@ -47,6 +49,9 @@ public class AnswerController {
         return String.format("redirect:/post/detail/%s", id);
     }
 
+//    コメントを修正するメソッドです。まずログインしているかを判断し、ログイン状態ではないと、ログインページに移動します。
+//    ログインしているとコメントを付けたユーザーと現在ログイン中のユーザーが違う場合、エラーページを
+//    同じユーザーだったら修正前のコメント内容が入っているフォームをreturnします。
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer id, Principal principal) {
@@ -58,6 +63,9 @@ public class AnswerController {
         return "answer_form";
     }
 
+//    GetMappingで貰ったフォームをpostでsubmitすれば、フォームにエラーがあるか確認します。あればエラー表示をします。
+//    その後、コメントを書いたユーザーとログイン中のユーザーを比較し、違うとエラーページを表示します。
+//    同じユーザーなら、コメントを修正した後、元のページをreturnします。
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     public String answerModify(@Valid AnswerForm answerForm, BindingResult bindingResult,
@@ -73,6 +81,8 @@ public class AnswerController {
         return String.format("redirect:/post/detail/%s", answer.getPost().getId());
     }
 
+//    コメントを削除するメソッドです。ログイン中か確認し、コメントを書いたユーザーとログイン中のユーザーを比較します。
+//    違うユーザーならエラーページを、同じユーザーならコメントを削除した後、元のページをreturnします。
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String answerDelete(Principal principal, @PathVariable("id") Integer id) {

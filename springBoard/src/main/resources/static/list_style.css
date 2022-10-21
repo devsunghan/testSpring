@@ -1,6 +1,6 @@
 table {
     border-collapse: separate;
-    border-spacing: 40px 10px;
+    border-spacing: 100px 10px;
 }
 
 ul {
@@ -10,4 +10,13 @@ ul {
 li {
     margin: 0px 10px;
     float: left;
+}
+
+.pagingDiv {
+    width: 80%;
+}
+
+.pagingDiv>ul>li {
+    height: 20px;
+    width: 20px;
 }

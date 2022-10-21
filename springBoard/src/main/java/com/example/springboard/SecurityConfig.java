@@ -20,6 +20,11 @@ import com.example.springboard.user.UserSecurityService;
 // @EnableGlobalMethodSecurity(prePostEnabled = true) は @PreAuthorize
 //annotationを活性化するannotationです。
 
+// Spring Securityはアプリケーションの認証と権限を担当するFrameWorkです。
+// 認証(Authenticate)：ログイン、権限(Authorize)：認証でしたユーザーが出来ること
+
+// @EnableWebSecurityを付けることでSpringSecurityFilterChainが動作し、URLフィルターが適用される
+
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity

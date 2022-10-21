@@ -1,0 +1,31 @@
+#nav1 {
+    text-align: left;
+    width: 100%;
+    overflow: hidden;
+    height: 80px;
+    background-color: #1b2035;
+    /*margin:50px auto*/
+}
+
+#nav1>ul {
+    display:inline-block;
+    list-style: none;
+    float: left;
+    padding: 0 30px;
+    line-height: 80px
+}
+
+#nav1>ul>li {
+    list-style: none;
+    float: left;
+    padding: 0 30px;
+    line-height: 80px
+}
+
+
+
+#nav1>ul>li>a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px
+}
